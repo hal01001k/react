@@ -2,8 +2,9 @@ import React, {Component} from "react";
 import {
     Card, CardImg, CardText, CardBody,
     CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody,
-    Col, FormGroup, Input, Label, Row
+    Col, Label, Row
 } from 'reactstrap';
+import { baseUrl } from '../shared/baseUrl';
 import {Link} from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 import {Control, LocalForm, Errors} from "react-redux-form";
@@ -13,7 +14,7 @@ function RenderDish({dish}) {
         return (
             <div className="col-12 col-md-5 m-1">
                 <Card>
-                    <CardImg top src={dish.image} alt={dish.name}/>
+                    <CardImg top src={baseUrl + dish.image} alt={dish.name}/>
                     <CardBody>
                         <CardTitle>{dish.name}</CardTitle>
                         <CardText>{dish.description}</CardText>
@@ -27,7 +28,7 @@ function RenderDish({dish}) {
         );
 }
 
-function RenderComments({comments,addComment,dishId}) {
+function RenderComments({comments,postComment,dishId}) {
     if (comments != null)
         return (
             <div className="col-12 col-md-5 m-1">
@@ -46,7 +47,7 @@ function RenderComments({comments,addComment,dishId}) {
                         );
                     })}
                 </ul>
-                <CommentForm dishId={dishId} addComment={addComment}/>
+                <CommentForm dishId={dishId} postComment={postComment}/>
             </div>
         );
     else
@@ -90,7 +91,7 @@ const DishDetail = (props) => {
                 <div className="row">
                     <RenderDish dish={props.dish}/>
                     <RenderComments comments={props.comments}
-                        addComment={props.addComment}
+                        postComment={props.postComment}
                     dishId={props.dish.id}/>
                 </div>
             </div>
@@ -127,7 +128,7 @@ export class CommentForm extends Component {
 
     handleSubmit(values){
         this.toggleModal();
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
 

@@ -4,9 +4,9 @@ import {
     CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody,
     Col, Label, Row
 } from 'reactstrap';
-import { baseUrl } from '../shared/baseUrl';
+import {baseUrl} from '../shared/baseUrl';
 import {Link} from 'react-router-dom';
-import { Loading } from './LoadingComponent';
+import {Loading} from './LoadingComponent';
 import {Control, LocalForm, Errors} from "react-redux-form";
 
 function RenderDish({dish}) {
@@ -28,7 +28,7 @@ function RenderDish({dish}) {
         );
 }
 
-function RenderComments({comments,postComment,dishId}) {
+function RenderComments({comments, postComment, dishId}) {
     if (comments != null)
         return (
             <div className="col-12 col-md-5 m-1">
@@ -58,24 +58,22 @@ function RenderComments({comments,postComment,dishId}) {
 
 const DishDetail = (props) => {
     if (props.isLoading) {
-        return(
+        return (
             <div className="container">
                 <div className="row">
-                    <Loading />
+                    <Loading/>
                 </div>
             </div>
         );
-    }
-    else if (props.errMess) {
-        return(
+    } else if (props.errMess) {
+        return (
             <div className="container">
                 <div className="row">
                     <h4>{props.errMess}</h4>
                 </div>
             </div>
         );
-    }
-    else if (props.dish != null)
+    } else if (props.dish != null)
         return (
             <div className="container">
                 <div className="row">
@@ -91,8 +89,8 @@ const DishDetail = (props) => {
                 <div className="row">
                     <RenderDish dish={props.dish}/>
                     <RenderComments comments={props.comments}
-                        postComment={props.postComment}
-                    dishId={props.dish.id}/>
+                                    postComment={props.postComment}
+                                    dishId={props.dish.id}/>
                 </div>
             </div>
         );
@@ -126,7 +124,7 @@ export class CommentForm extends Component {
         this.setState({isModalOpen: !this.state.isModalOpen});
     }
 
-    handleSubmit(values){
+    handleSubmit(values) {
         this.toggleModal();
         this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
